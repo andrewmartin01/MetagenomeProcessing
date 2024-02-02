@@ -1,7 +1,0 @@
-FROM debian:stretch-slim
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends git \
-    && apt-get clean
-#fix here I think I need to add he functions that I would like to use
- 
-RUN git clone https://github.com/andrewmartin01/MetagenomeProcessing.git
