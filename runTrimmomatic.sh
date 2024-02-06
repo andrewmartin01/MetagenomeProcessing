@@ -14,7 +14,7 @@
 #$2
 
 
-java -jar trimmomatic-0.38.jar PE /storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/ERR101899_1.fastq.gz /storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/ERR101899_2.fastq.gz \
+java -jar Trimmomatic-0.39/trimmomatic-0.38.jar PE /storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/ERR101899_1.fastq.gz /storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/ERR101899_2.fastq.gz \
      -baseout trimmomatic_out/ERR101899_filtered.fastq.gz \
      ILLUMINACLIP:/opt/apps/trimmomatic/0.38/adapters/NexteraPE-PE.fa:2:30:10:1:TRUE \
      LEADING:10 TRAILING:10 SLIDINGWINDOW:4:20 MINLEN:60
