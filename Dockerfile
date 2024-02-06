@@ -28,6 +28,7 @@ RUN tar -zxvf programs_AM/deconseq/download
 #
 RUN cd ../..
 
+RUN export LSF_DOCKER_VOLUMES=/storage1/fs1/rnewberry/Active:/storage1/fs1/rnewberry/Active
 #ENV PATH="$PATH:/usr/games"
 #RUN export PATH
 
