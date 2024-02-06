@@ -37,14 +37,7 @@ RUN unzip programs_AM/master.zip
 RUN wget -P programs_AM/ https://github.com/picrust/picrust2/archive/refs/tags/v2.5.2.zip
 RUN unzip programs_AM/v2.5.2.zip
 
-
-
 #changes to home directory
 RUN cd ../..
 #mounts storage for use inside the container
 RUN export LSF_DOCKER_VOLUMES=/storage1/fs1/rnewberry/Active:/storage1/fs1/rnewberry/Active
-#calls shell script that runs Trimmomatic
-#RUN ./MetagenomeProcessing/runTrimmomatic.sh
-#calls shell script that runs deconseq
-
-#calls shell script that runs repair.sh

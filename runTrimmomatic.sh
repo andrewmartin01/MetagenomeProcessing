@@ -1,13 +1,17 @@
 #!/bin/bash
 
 #=========================================================
-#File Name:
-#Description
+#File Name: runTrimmomatic.sh
+#Description: Runs the trimmomatic function (#1 step in the pipeline)
 #Author: Andrew Martin (adapted from Schwartz lab)
 #Version: 1.0
 #Created on: 02/02/2024
 
 #===========================================================
+
+#variable passed into the function when called 
+#$1 
+#$2
 
 
 java -jar $TRIMMOMATIC_HOME/trimmomatic-0.38.jar PE rawreads/${ID}_R1.fastq.gz rawreads/${ID}_R2.fastq.gz \
