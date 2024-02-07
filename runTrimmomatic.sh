@@ -10,11 +10,16 @@
 #===========================================================
 
 #variable passed into the function when called 
-#$1 
-#$2
+infile_fwd=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/${1}
+infile_rev=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/${2}
 
+output_paired_fwd=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_paired${1}
+output_paired_rev=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_paired${2}
 
-java -jar ../Trimmomatic-0.39/trimmomatic-0.39.jar PE /storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/ERR101899_1.fastq.gz /storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/ERR101899_2.fastq.gz \
-     -baseout trimmomatic_out/ERR101899_filtered.fastq.gz \
-     ILLUMINACLIP:/opt/apps/trimmomatic/0.38/adapters/NexteraPE-PE.fa:2:30:10:1:TRUE \
-     LEADING:10 TRAILING:10 SLIDINGWINDOW:4:20 MINLEN:60
+output_unpaired_fwd=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_unpaired${1}
+output_unpaired_rev=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_unpaired${2}
+
+java -jar ../Trimmomatic-0.39/trimmomatic-0.39.jar PE $infile_fwd $infile_rev \
+     $output_paired_fwd $output_unpaired_fwd\
+     $output_paired_rev $output_unpaired_rev\
+     ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:8:true LEADING:10 TRAILING:10 MINLEN:50
