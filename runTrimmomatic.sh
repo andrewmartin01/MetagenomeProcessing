@@ -19,7 +19,7 @@ output_paired_rev=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_f
 output_unpaired_fwd=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_unpaired${1}
 output_unpaired_rev=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_unpaired${2}
 
-java -jar ../Trimmomatic-0.39/trimmomatic-0.39.jar PE $infile_fwd $infile_rev \
+java -jar Trimmomatic-0.39/trimmomatic-0.39.jar PE $infile_fwd $infile_rev \
      $output_paired_fwd $output_unpaired_fwd\
      $output_paired_rev $output_unpaired_rev\
      ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:8:true LEADING:10 TRAILING:10 MINLEN:50
