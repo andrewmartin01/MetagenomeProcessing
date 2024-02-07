@@ -32,14 +32,14 @@ RUN wget -P programs_AM https://github.com/ablab/spades/archive/refs/heads/spade
 RUN unzip programs_AM/spades_3.15.5.zip
 #Install HUMAnN3.0 - functional profiling
 RUN wget -P programs_AM/ https://github.com/biobakery/humann/archive/refs/heads/master.zip
-RUN unzip programs_AM/master.zip2
+RUN unzip programs_AM/master.zip
 #Install Piecrust - functional profiling
 RUN wget -P programs_AM/ https://github.com/picrust/picrust2/archive/refs/tags/v2.5.2.zip
 RUN unzip programs_AM/v2.5.2.zip
 
 #moves shell scripts out into main directory for ease of calling
 RUN mv MetagenomeProcessing/runTrimmomatic.sh runTrimmomatic.sh
-
+RUN mv Trimmomatic-0.39/adapters/TruSeq3-PE.fa Trimmomatic-0.39/TruSeq3-PE.fa  
 
 #package manager manipulations
 
