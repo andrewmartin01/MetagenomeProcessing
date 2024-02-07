@@ -44,7 +44,12 @@ RUN mv Trimmomatic-0.39/adapters/TruSeq3-PE.fa TruSeq3-PE.fa
 #package manager manipulations
 
 #mounts storage for use inside the container
-RUN export LSF_DOCKER_VOLUMES=/storage1/fs1/rnewberry/Active:/storage1/fs1/rnewberry/Active/
+#RUN export LSF_DOCKER_VOLUMES='/storage1/fs1/rnewberry/Active:/storage1/fs1/rnewberry/Active/'
 
 #changes to home directory
 RUN cd ../..
+
+#Cleans imported stuff for smaller image
+RUN apt-get clean \
+&& rm -rf /tmp/downloaded_packages/* \
+&& rm -rf /var/lib/apt/lists/*
