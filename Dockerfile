@@ -39,7 +39,7 @@ RUN unzip programs_AM/v2.5.2.zip
 
 #moves shell scripts out into main directory for ease of calling
 RUN mv MetagenomeProcessing/runTrimmomatic.sh runTrimmomatic.sh
-RUN mv Trimmomatic-0.39/adapters/TruSeq3-PE.fa Trimmomatic-0.39/TruSeq3-PE.fa  
+RUN mv Trimmomatic-0.39/adapters/TruSeq3-PE.fa TruSeq3-PE.fa  
 
 #package manager manipulations
 
