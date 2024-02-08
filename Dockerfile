@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git python3 default-jre perl default-jdk wget tar unzip libjbzip2-java\
+    && apt-get install -y --no-install-recommends git python3-full pipx python3-pip gzip default-jre perl default-jdk wget tar unzip libjbzip2-java\
     && apt-get clean
 
 #clones git repository into container
@@ -21,9 +21,6 @@ RUN unzip programs_AM/Trimmomatic-0.39.zip
 #install deconseq
 RUN wget -P programs_AM/deconseq/ https://sourceforge.net/projects/deconseq/files/latest/download
 RUN tar -zxvf programs_AM/deconseq/download 
-#Install metaphlan - taxonomic profiling
-RUN wget -P programs_AM/ https://github.com/biobakery/MetaPhlAn/archive/refs/tags/4.0.6.zip
-RUN unzip programs_AM/4.0.6.zip
 #Install Kraken2 - taxonomic profiling
 RUN wget -P programs_AM/ https://github.com/DerrickWood/kraken2/archive/refs/tags/v2.1.3.zip
 RUN unzip programs_AM/v2.1.3.zip
@@ -36,15 +33,16 @@ RUN unzip programs_AM/master.zip
 #Install Piecrust - functional profiling
 RUN wget -P programs_AM/ https://github.com/picrust/picrust2/archive/refs/tags/v2.5.2.zip
 RUN unzip programs_AM/v2.5.2.zip
+#Install bowtie
+
+#Install metaphlan - taxonomic profiling DEPRECIATED... USE biobakery/metaphlan
+#RUN git clone https://github.com/biobakery/MetaPhlAn.git
 
 #moves shell scripts out into main directory for ease of calling
 RUN mv MetagenomeProcessing/runTrimmomatic.sh runTrimmomatic.sh
 RUN mv Trimmomatic-0.39/adapters/TruSeq3-PE.fa TruSeq3-PE.fa  
 
 #package manager manipulations
-
-#mounts storage for use inside the container
-#RUN export LSF_DOCKER_VOLUMES='/storage1/fs1/rnewberry/Active:/storage1/fs1/rnewberry/Active/'
 
 #changes to home directory
 RUN cd ../..
