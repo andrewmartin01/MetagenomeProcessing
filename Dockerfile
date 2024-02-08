@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git python3 default-jre default-jdk wget tar unzip libjbzip2-java\
+    && apt-get install -y --no-install-recommends git python3 default-jre perl default-jdk wget tar unzip libjbzip2-java\
     && apt-get clean
 
 #clones git repository into container
@@ -50,6 +50,6 @@ RUN mv Trimmomatic-0.39/adapters/TruSeq3-PE.fa TruSeq3-PE.fa
 RUN cd ../..
 
 #Cleans imported stuff for smaller image
-RUN apt-get clean \
-&& rm -rf /tmp/downloaded_packages/* \
-&& rm -rf /var/lib/apt/lists/*
+RUN apt-get clean 
+#\&& rm -rf /tmp/downloaded_packages/* \
+#&& rm -rf /var/lib/apt/lists/*
