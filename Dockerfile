@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git python3-full pipx python3-pip gzip default-jre perl default-jdk wget tar unzip libjbzip2-java\
+    && apt-get install -y --no-install-recommends git python3-full pipx python3-pip default-jre perl default-jdk wget tar unzip libjbzip2-java\
     && apt-get clean
 
 #clones git repository into container
