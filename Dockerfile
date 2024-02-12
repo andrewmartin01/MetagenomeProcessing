@@ -41,7 +41,8 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 /bin/bash ~/miniconda.sh -b -p /opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
 RUN conda config --set channel_priority false
-RUN conda create --name metaphlan4 -c bioconda python=3.7.2 metaphlan=4.0.1
+RUN conda update --all --yes
+#RUN conda create --name metaphlan4 -c bioconda python=3.7.2 metaphlan=4.0.1
 #Install metaphlan
 RUN conda install -c bioconda metaphlan 
 RUN conda create --name mpa -c bioconda python=3.7 metaphlan
