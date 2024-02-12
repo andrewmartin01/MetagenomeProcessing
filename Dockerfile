@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git python3-full pipx python3-pip default-jre perl default-jdk wget tar unzip libjbzip2-java\
+    && apt-get install -y --no-install-recommends git python3 pipx python3-pip default-jre perl default-jdk wget tar unzip libjbzip2-java\
     && apt-get clean
 
 #clones git repository into container
@@ -35,8 +35,24 @@ RUN wget -P programs_AM/ https://github.com/picrust/picrust2/archive/refs/tags/v
 RUN unzip programs_AM/v2.5.2.zip
 #Install bowtie
 
-#Install metaphlan - taxonomic profiling DEPRECIATED... USE biobakery/metaphlan
-#RUN git clone https://github.com/biobakery/MetaPhlAn.git
+#install conda
+ENV CONDA_DIR /opt/conda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+/bin/bash ~/miniconda.sh -b -p /opt/conda
+ENV PATH=$CONDA_DIR/bin:$PATH
+RUN conda config --set channel_priority false
+RUN conda create --name metaphlan4 -c bioconda python=3.7.2 metaphlan=4.0.1
+#Install metaphlan
+RUN conda install -c bioconda metaphlan 
+RUN conda create --name mpa -c bioconda python=3.7 metaphlan
+RUN conda install -c conda-forge -c bioconda metaphlan
+RUN conda create --name mpa -c conda-forge -c bioconda python=3.7 metaphlan
+RUN conda activate mpa
+RUN command
+RUN pip install metaphlan
+RUN git clone https://github.com/biobakery/MetaPhlAn.git
+RUN pip install .
+RUN metaphlan --install 
 
 #moves shell scripts out into main directory for ease of calling
 RUN mv MetagenomeProcessing/runTrimmomatic.sh runTrimmomatic.sh
