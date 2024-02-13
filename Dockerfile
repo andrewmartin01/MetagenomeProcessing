@@ -35,25 +35,28 @@ RUN wget -P programs_AM/ https://github.com/picrust/picrust2/archive/refs/tags/v
 RUN unzip programs_AM/v2.5.2.zip
 #Install bowtie
 
+#install KneadData
+RUN git clone https://github.com/biobakery/kneaddata.git
+RUN pip install kneaddata
 #install conda
-ENV CONDA_DIR /opt/conda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-/bin/bash ~/miniconda.sh -b -p /opt/conda
-ENV PATH=$CONDA_DIR/bin:$PATH
-RUN conda config --set channel_priority false
-RUN conda update --all --yes
+#ENV CONDA_DIR /opt/conda
+#RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+#/bin/bash ~/miniconda.sh -b -p /opt/conda
+#ENV PATH=$CONDA_DIR/bin:$PATH
+#RUN conda config --set channel_priority false
+#RUN conda update --all --yes
 #RUN conda create --name metaphlan4 -c bioconda python=3.7.2 metaphlan=4.0.1
 #Install metaphlan
-RUN conda install -c bioconda metaphlan 
-RUN conda create --name mpa -c bioconda python=3.7 metaphlan
-RUN conda install -c conda-forge -c bioconda metaphlan
-RUN conda create --name mpa -c conda-forge -c bioconda python=3.7 metaphlan
-RUN conda activate mpa
-RUN command
-RUN pip install metaphlan
-RUN git clone https://github.com/biobakery/MetaPhlAn.git
-RUN pip install .
-RUN metaphlan --install 
+#RUN conda install -c bioconda metaphlan 
+#RUN conda create --name mpa -c bioconda python=3.7 metaphlan
+#RUN conda install -c conda-forge -c bioconda metaphlan
+#RUN conda create --name mpa -c conda-forge -c bioconda python=3.7 metaphlan
+#RUN conda activate mpa
+#RUN command
+#RUN pip install metaphlan
+#RUN git clone https://github.com/biobakery/MetaPhlAn.git
+#RUN pip install .
+#RUN metaphlan --install 
 
 #moves shell scripts out into main directory for ease of calling
 RUN mv MetagenomeProcessing/runTrimmomatic.sh runTrimmomatic.sh
