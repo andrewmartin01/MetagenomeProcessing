@@ -37,7 +37,8 @@ RUN unzip programs_AM/v2.5.2.zip
 
 #install KneadData
 RUN git clone https://github.com/biobakery/kneaddata.git
-RUN pip install kneaddata
+RUN cd kneaddata
+#RUN pip install kneaddata
 #install conda
 #ENV CONDA_DIR /opt/conda
 #RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
