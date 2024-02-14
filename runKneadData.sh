@@ -2,6 +2,9 @@
 export LSF_DOCKER_VOLUMES='/storage1/fs1/rnewberry/Active:/storage1/fs1/rnewberry/Active/ /scratch1/fs1/rnewberry/Andrew:/scratch1/fs1/rnewberry/Andrew'
 directory_path=storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/Seq_Files_Real/
 
+#make a job group
+bgadd -L 50 /andrew.martin/trim_decon_compute1
+
 # Use find to get a list of files in the directory
 files=$(find "$directory_path" -type f -name "*_001.fastq.gz")
 
@@ -19,7 +22,8 @@ for file1 in $files; do
         mkdir scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
 
         #runs all of the datasets through trimmomatic and decon of host reads
-        bsub -n 2 -R 'rusage[mem=16GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db scratch1/fs1/rnewberry/Andrew/decon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
-        
+        #bsub -n 4 -R 'rusage[mem=16GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db scratch1/fs1/rnewberry/Andrew/decon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
+        bsub -g /andrew.martin/trim_decon_compute1 -n 16 -R 'rusage[mem=16GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db scratch1/fs1/rnewberry/Andrew/decon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
+
     fi
 done
