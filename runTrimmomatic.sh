@@ -2,24 +2,40 @@
 
 #=========================================================
 #File Name: runTrimmomatic.sh
-#Description: Runs the trimmomatic function (#1 step in the pipeline)
+#Description: Runs the trimmomatic function, creating own queue for submission of >5 jobs at one time
 #Author: Andrew Martin (adapted from Schwartz lab)
 #Version: 1.0
 #Created on: 02/02/2024
 
 #===========================================================
 
-#variable passed into the function when called 
-infile_fwd=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/${1}
-infile_rev=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/${2}
+export LSF_DOCKER_VOLUMES='/storage1/fs1/rnewberry/Active:/storage1/fs1/rnewberry/Active/ /scratch1/fs1/rnewberry/Andrew:/scratch1/fs1/rnewberry/Andrew'
+directory_path=storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/Seq_Files_Real/
 
-output_paired_fwd=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_paired${1}
-output_paired_rev=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_paired${2}
+#make a job group
+bgadd -L 50 /andrew.martin/trimmomatic_compute1
 
-output_unpaired_fwd=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_unpaired${1}
-output_unpaired_rev=/storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/PE_Test_files/trimmed_unpaired${2}
+# Use find to get a list of files in the directory
+files=$(find "$directory_path" -type f -name "*_001.fastq.gz")
 
-java -jar Trimmomatic-0.39/trimmomatic-0.39.jar PE $infile_fwd $infile_rev \
-     $output_paired_fwd $output_unpaired_fwd\
-     $output_paired_rev $output_unpaired_rev\
-     ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:8:true LEADING:10 TRAILING:10 MINLEN:50
+# Iterate through each file
+for file1 in $files; do
+    # Extract the base name
+    base_name=$(basename "$file1" "1_001.fastq.gz")
+
+    # Form the pair file name
+    file2="$directory_path$base_name"2_001.fastq.gz
+
+    # Check if the pair file exists
+    if [ -e "$file2" ]; then
+        #makes a directory for storing the output
+        mkdir scratch1/fs1/rnewberry/Andrew/trimmomatic_output/${base_name}/
+          
+        #runs all of the datasets through trimmomatic and decon of host reads
+        bsub -g /andrew.martin/trimmomatic_compute1 -n 16 -R 'rusage[mem=32GB]' -q general -a 'docker(andrewmartin1/metagenome_pipeline:latest)' java -jar Trimmomatic-0.39/trimmomatic-0.39.jar PE $file1 $file2 \
+               ${basename}_paired_fwd ${basename}_unpaired_fwd\
+               ${basename}_paired_rev ${basename}_unpaired_rev\
+               ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:8:true LEADING:10 TRAILING:10 MINLEN:50
+    fi
+done
+
