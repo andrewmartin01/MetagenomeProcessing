@@ -23,8 +23,7 @@ for file1 in $files; do
         mkdir scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
 
         #runs all of the datasets through trimmomatic and decon of host reads
-        #bsub -n 4 -R 'rusage[mem=16GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db scratch1/fs1/rnewberry/Andrew/decon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
-        bsub -g /andrew.martin/runFastQC -n 8 -R 'rusage[mem=16GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db scratch1/fs1/rnewberry/Andrew/decon/mouse_C57BL_6NJ --sequencer-source TruSeq3 --run-trim-repetitive --fastqc PATHTOFASTQC --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
+        bsub -g /andrew.martin/runFastQC -n 8 -R 'rusage[mem=16GB]' -q general -a 'docker(andrewmartin1/metagenome_pipeline)' kneaddata --input $file1 --input $file2 -db scratch1/fs1/rnewberry/Andrew/decon/mouse_C57BL_6NJ --sequencer-source TruSeq3 --run-trim-repetitive --fastqc PATHTOFASTQC --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
 
     fi
 done
