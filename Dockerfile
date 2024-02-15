@@ -39,7 +39,6 @@ RUN unzip programs_AM/master.zip
 RUN wget -P programs_AM/ https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.12.1.zip
 RUN unzip programs_AM/fastqc_v0.12.1.zip
 
-
 #install KneadData
 RUN git clone https://github.com/biobakery/kneaddata.git
 #RUN cd kneaddata
