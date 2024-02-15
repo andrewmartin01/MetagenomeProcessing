@@ -33,8 +33,8 @@ for file1 in $files; do
           
         #runs all of the datasets through trimmomatic and decon of host reads
         bsub -g /andrew.martin/trimmomatic_compute1 -n 16 -R 'rusage[mem=32GB]' -q general -a 'docker(andrewmartin1/metagenome_pipeline:latest)' java -jar Trimmomatic-0.39/trimmomatic-0.39.jar PE $file1 $file2 \
-               ${basename}_paired_fwd ${basename}_unpaired_fwd\
-               ${basename}_paired_rev ${basename}_unpaired_rev\
+               scratch1/fs1/rnewberry/Andrew/trimmomatic_output/${base_name}/${base_name}_paired_fwd.fastq.gz scratch1/fs1/rnewberry/Andrew/trimmomatic_output/${base_name}/${base_name}_unpaired_fwd.fastq.gz\
+               scratch1/fs1/rnewberry/Andrew/trimmomatic_output/${base_name}/${base_name}_paired_rev.fastq.gz scratch1/fs1/rnewberry/Andrew/trimmomatic_output/${base_name}/${base_name}_unpaired_rev.fastq.gz\
                ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:8:true LEADING:10 TRAILING:10 MINLEN:50
     fi
 done
