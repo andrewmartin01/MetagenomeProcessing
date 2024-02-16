@@ -22,9 +22,8 @@ for file1 in $files; do
         mkdir scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
 
         #runs all of the datasets through trimmomatic and decon of host reads
-        bsub -g /andrew.martin/trim_decon_compute1 -n 16 -R 'rusage[mem=32GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/KneadDataDecon/mouse_C57BL_6NJ --sequencer-source TruSeq3 --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/ --sequencer_source TruSeq3 --
+        bsub -g /andrew.martin/trim_decon_compute1 -n 16 -R 'rusage[mem=32GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input file2 -db storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/KneadDataDecon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/ --sequencer-source TruSeq3 --trimmomatic-options HEADCROP:10 --trimmomatic-options MINLEN:50 --trimmomatic-options LEADING:10 --trimmomatic-options TRAILING:10
 
     fi
 done
 
-#kneaddata --input scratch1/fs1/rnewberry/Andrew/trimmomatic_output/LIB024170-DIL01_22J3V7LT3_S153_L005_R_paired_fwd.fastq.gz --input scratch1/fs1/rnewberry/Andrew/trimmomatic_output/LIB024170-DIL01_22J3V7LT3_S153_L005_R_paired_rev.fastq.gz -db storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/KneadDataDecon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/test/ --sequencer-source TruSeq3 --trimmomatic-options HEADCROP:10 --trimmomatic-options MINLEN:50 --trimmomatic-options LEADING:10 --trimmomatic-options TRAILING:10
