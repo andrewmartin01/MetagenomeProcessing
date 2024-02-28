@@ -9,6 +9,9 @@ bgadd -L 50 /andrew.martin/metaphlan
 # Use find to get a list of files in the directory
 files=$(find "$directory_path" -type f -name "*.fastq.gz")
 
+#unzips the files 
+#gunzip files
+
 # Iterate through each file
 for file1 in $files; do
     # Extract the base name
@@ -23,7 +26,7 @@ for file1 in $files; do
         #mkdir scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
 
         #runs all of the datasets through trimmomatic and decon of host reads
-        bsub -g /andrew.martin/metaphlan -n 25 -R 'rusage[mem=64GB]' -q general -a 'docker(biobakery/humann)' metaphlan $file1,$file2 --input_type fastq.gz --nproc 25 -o scratch1/fs1/rnewberry/Andrew/metaphlan_output/${base_name}_profiled_metagenome.txt --bowtie2out scratch1/fs1/rnewberry/Andrew/metaphlan_output/${base_name}metagenome.bowtie2.bz2 --bowtie2db storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/metaphlan_database/mpa_vOct22_CHOCOPhlAnSGB_202212 --index mpa_vOct22_CHOCOPhlAnSGB_202212
+        bsub -g /andrew.martin/metaphlan -n 25 -R 'rusage[mem=64GB]' -q general -a 'docker(biobakery/humann)' metaphlan $file1,$file2 --input_type fastq --nproc 25 -o scratch1/fs1/rnewberry/Andrew/metaphlan_output/${base_name}_profiled_metagenome.txt --bowtie2out scratch1/fs1/rnewberry/Andrew/metaphlan_output/${base_name}metagenome.bowtie2.bz2 --bowtie2db storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/metaphlan_database/mpa_vOct22_CHOCOPhlAnSGB_202212 --index mpa_vOct22_CHOCOPhlAnSGB_202212
 
     fi
 done
