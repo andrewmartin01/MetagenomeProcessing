@@ -22,8 +22,8 @@ for file1 in $files; do
         mkdir scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
 
         #runs all of the datasets through trimmomatic and decon of host reads
-        #bsub -n 4 -R 'rusage[mem=16GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db scratch1/fs1/rnewberry/Andrew/decon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
-        bsub -g /andrew.martin/trim_decon_compute1 -n 16 -R 'rusage[mem=32GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db scratch1/fs1/rnewberry/Andrew/decon/mouse_C57BL_6NJ --sequencer-source TruSeq3 --run-trim-repetitive --fastqc PATHTOFASTQC --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/
+        bsub -g /andrew.martin/trim_decon_compute1 -n 16 -R 'rusage[mem=32GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/KneadDataDecon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/ --sequencer-source TruSeq3 --trimmomatic-options HEADCROP:10 --trimmomatic-options MINLEN:50 --trimmomatic-options LEADING:10 --trimmomatic-options TRAILING:10
 
     fi
 done
+
