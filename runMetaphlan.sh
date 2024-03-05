@@ -7,7 +7,7 @@ directory_path=/scratch1/fs1/rnewberry/Andrew/trimmomatic_output/
 bgadd -L 50 /andrew.martin/metaphlan
 
 # Use find to get a list of files in the directory
-files=$(find "$directory_path" -type f -name "*.fastq.gz")
+files=$(find "$directory_path" -type f -name "*.fastq")
 
 #unzips the files 
 #gunzip files
@@ -15,10 +15,10 @@ files=$(find "$directory_path" -type f -name "*.fastq.gz")
 # Iterate through each file
 for file1 in $files; do
     # Extract the base name
-    base_name=$(basename "$file1" "fwd.fastq.gz")
+    base_name=$(basename "$file1" "fwd.fastq")
 
     # Form the pair file name
-    file2="$directory_path$base_name"rev.fastq.gz
+    file2="$directory_path$base_name"rev.fastq
 
     # Check if the pair file exists
     if [ -e "$file2" ]; then
