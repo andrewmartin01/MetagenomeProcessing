@@ -29,6 +29,6 @@ for file1 in $files; do
         mkdir scratch1/fs1/rnewberry/Andrew/trimmomatic_output/${base_name}/
           
         #runs humanN on all samples for functional profiling
-        bsub -g /andrew.martin/HumanN -n 20 -R 'rusage[mem=32GB]' -q general -a 'docker(biobakery/humann)'  
+        bsub -g /andrew.martin/HumanN -n 20 -R 'rusage[mem=32GB]' -q general -a 'docker(biobakery/humann)' --nucleotide-database /storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/HumanN_database/HumanN_Chocophlan --protein-database /storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/HumanN_database/UniRef90_db
     fi
 done
