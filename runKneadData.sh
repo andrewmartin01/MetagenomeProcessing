@@ -24,6 +24,6 @@ for file1 in $files; do
         #runs all of the datasets through trimmomatic and decon of host reads
         bsub -g /andrew.martin/trim_decon_compute1 -n 16 -R 'rusage[mem=32GB]' -q general -a 'docker(biobakery/kneaddata)' kneaddata --input $file1 --input $file2 -db storage1/fs1/rnewberry/Active/Andrew_metagenome_seq/KneadDataDecon/mouse_C57BL_6NJ --output scratch1/fs1/rnewberry/Andrew/trim_decon_output/${base_name}/ --sequencer-source TruSeq3 --bypass-trim
 
-    #fi
+    fi
 done
 
