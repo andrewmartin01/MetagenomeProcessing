@@ -48,7 +48,22 @@ legend("topright", inset = c(-0.67, 0), title = "Species",legend= c(as.vector(Av
 #text(1:ncol(m), par("usr")[3] - 0.5, labels = new_df$Species, srt = 90, adj = 1, xpd = TRUE, cex = 0.8)
 
 #paired barplot
+par(mar=c(5,5,5,5))
+rowmean.KA<-rowMeans(m[,1:11])
+rowmean.mAN<-rowMeans(m[,12:22])
+paired.df<-data.frame(rowmean.KA,rowmean.mAN)
+colnames(paired.df)<-c("KA","mAN")
 
+#looks like shit
+#heatmap(as.matrix(paired.df),col=rainbow(300),Colv=NA,Rowv = NA)
+
+#log fold change
+log2FoldChange.df<-data.frame(log2(paired.df$KA),log2(paired.df$mAN))
+log2FoldChange.df<-data.frame(Averaged_pooled_abundance_table$Species,log2FoldChange.df$log2.paired.df.KA.-log2FoldChange.df$log2.paired.df.mAN.)
+
+
+
+barplot(log2FoldChange)
 #total abundance
 barplot()
 
